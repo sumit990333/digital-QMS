@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apex QMS — Industrial Quality Management System</title>
+  <meta name="description" content="Industrial quality management and fleet monitoring system for high-output flexible packaging manufacturing plants. Native Android & Jetpack Compose application.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-base: #031427;
+      --bg-surface: #0b1c30;
+      --bg-card: #0f172a;
+      --bg-card-hover: #162238;
+      --border-dark: #1e293b;
+      --border-focus: #38bdf8;
+      --text-main: #d3e4fe;
+      --text-muted: #94a3b8;
+      --amber: #f59e0b;
+      --amber-glow: rgba(245, 158, 11, 0.15);
+      --green: #10b981;
+      --green-glow: rgba(16, 185, 129, 0.15);
+      --red: #ef4444;
+      --red-glow: rgba(239, 68, 68, 0.15);
+      --cyan: #38bdf8;
+      --font-display: 'Chivo', sans-serif;
+      --font-body: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 100% 30%, rgba(56, 189, 248, 0.04) 0%, transparent 40%),
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
+    }
+
+    /* Top Utility Bar */
+    .top-bar {
+      border-bottom: 1px solid var(--border-dark);
+      background: rgba(3, 20, 39, 0.85);
+      backdrop-filter: blur(8px);
+      padding: 8px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .top-bar .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--amber);
+      font-weight: 700;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px;
+      width: 100%;
+    }
+
+    /* Notice Banner for GitHub Pages */
+    .gh-notice {
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-left: 4px solid var(--amber);
+      border-radius: 4px;
+      padding: 16px 20px;
+      margin-bottom: 36px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .gh-notice-icon {
+      color: var(--amber);
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .gh-notice-content h4 {
+      font-family: var(--font-display);
+      font-size: 15px;
+      color: var(--amber);
+      margin-bottom: 4px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .gh-notice-content p {
+      font-size: 13px;
+      color: #cbd5e1;
+      line-height: 1.4;
+    }
+
+    /* Hero Section */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+      align-items: center;
+      margin-bottom: 60px;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 44px;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+
+    .hero-title span {
+      color: var(--amber);
+    }
+
+    .hero-subtitle {
+      font-size: 17px;
+      color: #94a3b8;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+
+    .tag {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid var(--border-dark);
+      padding: 4px 10px;
+      border-radius: 3px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--cyan);
+    }
+
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 12px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--amber);
+      color: #0b1120;
+    }
+
+    .btn-primary:hover {
+      background: #fbbf24;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(245, 158, 11, 0.3);
+    }
+
+    .btn-secondary {
+      background: #1e293b;
+      color: #f8fafc;
+      border: 1px solid #334155;
+    }
+
+    .btn-secondary:hover {
+      background: #28374d;
+      border-color: #64748b;
+    }
+
+    /* Terminal Preview Box */
+    .terminal-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+    }
+
+    .terminal-header {
+      background: #0b1626;
+      border-bottom: 1px solid var(--border-dark);
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .terminal-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .terminal-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .dot-red { background: #ef4444; }
+    .dot-yellow { background: #f59e0b; }
+    .dot-green { background: #10b981; }
+
+    .terminal-body {
+      padding: 20px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: #e2e8f0;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .matrix-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .matrix-label {
+      color: var(--text-muted);
+    }
+
+    .matrix-val {
+      font-weight: 600;
+    }
+
+    .badge-pass {
+      color: var(--green);
+      background: var(--green-glow);
+      padding: 2px 6px;
+      border-radius: 2px;
+      border: 1px solid var(--green);
+    }
+
+    .badge-warn {
+      color: var(--amber);
+      background: var(--amber-glow);
+      padding: 2px 6px;
+      border-radius: 2px;
+      border: 1px solid var(--amber);
+    }
+
+    .badge-alert {
+      color: var(--red);
+      background: var(--red-glow);
+      padding: 2px 6px;
+      border-radius: 2px;
+      border: 1px solid var(--red);
+    }
+
+    /* Grid of Features */
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-bottom: 50px;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      border-radius: 4px;
+      padding: 24px;
+      position: relative;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-2px);
+      border-color: #334155;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--border-dark);
+    }
+
+    .feature-card.amber-top::before { background: var(--amber); }
+    .feature-card.green-top::before { background: var(--green); }
+    .feature-card.cyan-top::before { background: var(--cyan); }
+    .feature-card.red-top::before { background: var(--red); }
+
+    .feature-card h3 {
+      font-family: var(--font-display);
+      font-size: 17px;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Installation & Execution Guide */
+    .guide-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
+      padding: 32px;
+      margin-bottom: 50px;
+    }
+
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .step-number {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--amber);
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid var(--amber);
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .step-content h4 {
+      font-family: var(--font-display);
+      font-size: 15px;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .step-content p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .code-block {
+      background: #070e17;
+      border: 1px solid #1e293b;
+      border-radius: 4px;
+      padding: 10px 14px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: #38bdf8;
+      overflow-x: auto;
+      display: block;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-dark);
+      padding: 30px 24px;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: #64748b;
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Real-time Bar -->
+  <div class="top-bar">
+    <div class="brand-badge">
+      <span class="status-dot"></span>
+      <span>APEX QMS // INDUSTRIAL OPERATIONAL SUITE</span>
+    </div>
+    <div style="color: var(--text-muted);">
+      APP STATUS: <span style="color: var(--green);">NATIVE KOTLIN & COMPOSE</span>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- Why GitHub Pages Showed 404 Notice -->
+    <div class="gh-notice">
+      <div class="gh-notice-icon">ℹ️</div>
+      <div class="gh-notice-content">
+        <h4>Why did GitHub Pages show "404 File Not Found"?</h4>
+        <p>
+          GitHub Pages is designed to host static web files (HTML/CSS/JS) and expects an <code>index.html</code> file in the repository. Because <strong>Apex QMS</strong> is a native <strong>Android mobile application</strong> built with Kotlin and Jetpack Compose, the repository only contained the Android source code (<code>.kt</code>, Gradle build scripts, and resource XMLs).
+        </p>
+        <p style="margin-top: 6px;">
+          This <code>index.html</code> now serves as the official <strong>Apex QMS Web Portal & APK Distribution Hub</strong> so your GitHub Pages deployment works immediately without showing a 404!
+        </p>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div>
+        <h1 class="hero-title">High-Output Plant <span>Quality Assurance</span></h1>
+        <p class="hero-subtitle">
+          Designed for flexible packaging manufacturing: Real-time telemetry, tolerance monitoring (micron gauge, tensile yield, seal strength), non-conformance reporting (NCR), and ASTM/ISO audit logging.
+        </p>
+        <div class="hero-tags">
+          <span class="tag">Android 14+</span>
+          <span class="tag">Jetpack Compose</span>
+          <span class="tag">Material 3</span>
+          <span class="tag">Kotlin Coroutines</span>
+          <span class="tag">Industrial UI</span>
+        </div>
+        <div class="cta-group">
+          <a href="#how-to-run" class="btn btn-primary">
+            <span>⚙️</span> How to Run & Build APK
+          </a>
+          <a href="#telemetry-preview" class="btn btn-secondary">
+            <span>📊</span> Live Telemetry Preview
+          </a>
+        </div>
+      </div>
+
+      <!-- Live Mock Telemetry Terminal -->
+      <div class="terminal-card" id="telemetry-preview">
+        <div class="terminal-header">
+          <div class="terminal-dots">
+            <span class="terminal-dot dot-red"></span>
+            <span class="terminal-dot dot-yellow"></span>
+            <span class="terminal-dot dot-green"></span>
+          </div>
+          <span>EXTRUSION_LINE_01 // ACTIVE TELEMETRY</span>
+        </div>
+        <div class="terminal-body" id="live-matrix">
+          <div class="matrix-row">
+            <span class="matrix-label">TARGET FILM THICKNESS:</span>
+            <span class="matrix-val" id="val-thickness">40.2 µm <span class="badge-pass">IN SPEC (±5%)</span></span>
+          </div>
+          <div class="matrix-row">
+            <span class="matrix-label">WEB TENSION:</span>
+            <span class="matrix-val" id="val-tension">142.4 N/m <span class="badge-pass">STABLE</span></span>
+          </div>
+          <div class="matrix-row">
+            <span class="matrix-label">DIE ZONE TEMP:</span>
+            <span class="matrix-val" id="val-temp">198.5 °C <span class="badge-pass">NOMINAL</span></span>
+          </div>
+          <div class="matrix-row">
+            <span class="matrix-label">LINE RUNNING SPEED:</span>
+            <span class="matrix-val" id="val-speed">245 m/min</span>
+          </div>
+          <div class="matrix-row">
+            <span class="matrix-label">CURRENT LOT STATUS:</span>
+            <span class="matrix-val"><span class="badge-pass">READY FOR ROLL AUDIT</span></span>
+          </div>
+          <div class="matrix-row">
+            <span class="matrix-label">ACTIVE LOT NUMBER:</span>
+            <span class="matrix-val" style="color: var(--amber);">LOT-2026-EX01-089</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key App Modules -->
+    <h2 class="section-title">Core Android Modules</h2>
+    <p class="section-desc">Apex QMS consists of four specialized operational views optimized for industrial handhelds and plant terminals:</p>
+
+    <div class="cards-grid">
+      <div class="feature-card amber-top">
+        <h3>1. Fleet Telemetry Monitor</h3>
+        <p>Live bird's-eye view of all extrusion, rotogravure, and slitting lines with real-time sensor updates, throughput gauges, and one-tap quarantine triggers.</p>
+      </div>
+
+      <div class="feature-card green-top">
+        <h3>2. Roll Audit & Sign-off</h3>
+        <p>Inspection checklists verifying ASTM D882 tensile yield, ASTM D1922 tear resistance, corona treat dynes, and barcode lot verification.</p>
+      </div>
+
+      <div class="feature-card red-top">
+        <h3>3. Defect & NCR Log</h3>
+        <p>Comprehensive Non-Conformance Reporting with root cause analysis (5-Why), containment actions, scrap footage calculations, and severity tagging.</p>
+      </div>
+
+      <div class="feature-card cyan-top">
+        <h3>4. Lab Test Records</h3>
+        <p>Historical quality logs, coefficient of friction (COF) records, dart drop impact metrics, and batch certificates of analysis (CoA).</p>
+      </div>
+    </div>
+
+    <!-- How to Run the App -->
+    <div class="guide-section" id="how-to-run">
+      <h2 class="section-title">How to Run & Deploy Apex QMS</h2>
+      <p class="section-desc">Choose one of the methods below to run or test the native Android application:</p>
+
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h4>In Google AI Studio (Instant Emulator)</h4>
+            <p>You can run and interact with the full native Android app directly in your browser using the streaming Android emulator in AI Studio's right panel.</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h4>In Android Studio (Development & Testing)</h4>
+            <p>Clone the GitHub repository to your local machine and open it in Android Studio:</p>
+            <code class="code-block">git clone https://github.com/&lt;your-username&gt;/&lt;your-repo&gt;.git<br>cd &lt;your-repo&gt;</code>
+            <p style="margin-top: 8px;">Select an Android Virtual Device (AVD) or plug in an Android phone via USB, then press <strong>Run (Shift + F10)</strong>.</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h4>Build Android APK via Command Line</h4>
+            <p>Build a ready-to-install debug APK using Gradle on Linux, macOS, or Windows:</p>
+            <code class="code-block"># On Linux / macOS:<br>./gradlew assembleDebug<br><br># On Windows:<br>gradlew.bat assembleDebug</code>
+            <p style="margin-top: 8px;">The generated APK will be at: <code>app/build/outputs/apk/debug/app-debug.apk</code>. You can install it on any Android device via ADB:</p>
+            <code class="code-block">adb install app/build/outputs/apk/debug/app-debug.apk</code>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h4>Automated GitHub Actions CI/CD (Optional)</h4>
+            <p>This repository includes a GitHub Action workflow (<code>.github/workflows/build-apk.yml</code>) that automatically builds the APK whenever you push to GitHub, attaches the compiled <code>.apk</code> as a downloadable artifact, and deploys this web hub to GitHub Pages.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>APEX QMS &bull; INDUSTRIAL PACKAGING QUALITY SUITE &bull; KOTLIN & JETPACK COMPOSE</p>
+  </footer>
+
+  <script>
+    // Live subtle telemetry oscillation to demonstrate real-time features
+    setInterval(() => {
+      const thickness = (40.0 + (Math.random() * 0.6 - 0.3)).toFixed(1);
+      const tension = (142.0 + (Math.random() * 1.5 - 0.75)).toFixed(1);
+      const temp = (198.0 + (Math.random() * 1.0 - 0.5)).toFixed(1);
+      const speed = Math.floor(244 + Math.random() * 4);
+
+      const elThick = document.getElementById('val-thickness');
+      const elTens = document.getElementById('val-tension');
+      const elTemp = document.getElementById('val-temp');
+      const elSpeed = document.getElementById('val-speed');
+
+      if (elThick) elThick.innerHTML = `${thickness} µm <span class="badge-pass">IN SPEC (±5%)</span>`;
+      if (elTens) elTens.innerHTML = `${tension} N/m <span class="badge-pass">STABLE</span>`;
+      if (elTemp) elTemp.innerHTML = `${temp} °C <span class="badge-pass">NOMINAL</span>`;
+      if (elSpeed) elSpeed.innerText = `${speed} m/min`;
+    }, 2500);
+  </script>
+</body>
+</html>
