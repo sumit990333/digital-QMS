@@ -1,0 +1,229 @@
+---
+name: Apex QMS
+colors:
+  surface: '#031427'
+  surface-dim: '#031427'
+  surface-bright: '#2a3a4f'
+  surface-container-lowest: '#000f21'
+  surface-container-low: '#0b1c30'
+  surface-container: '#102034'
+  surface-container-high: '#1b2b3f'
+  surface-container-highest: '#26364a'
+  on-surface: '#d3e4fe'
+  on-surface-variant: '#c6c6cd'
+  inverse-surface: '#d3e4fe'
+  inverse-on-surface: '#213145'
+  outline: '#909097'
+  outline-variant: '#45464d'
+  surface-tint: '#bec6e0'
+  primary: '#bec6e0'
+  on-primary: '#283044'
+  primary-container: '#0f172a'
+  on-primary-container: '#798098'
+  inverse-primary: '#565e74'
+  secondary: '#ffb95f'
+  on-secondary: '#472a00'
+  secondary-container: '#ee9800'
+  on-secondary-container: '#5b3800'
+  tertiary: '#4edea3'
+  on-tertiary: '#003824'
+  tertiary-container: '#001c10'
+  on-tertiary-container: '#009365'
+  error: '#ffb4ab'
+  on-error: '#690005'
+  error-container: '#93000a'
+  on-error-container: '#ffdad6'
+  primary-fixed: '#dae2fd'
+  primary-fixed-dim: '#bec6e0'
+  on-primary-fixed: '#131b2e'
+  on-primary-fixed-variant: '#3f465c'
+  secondary-fixed: '#ffddb8'
+  secondary-fixed-dim: '#ffb95f'
+  on-secondary-fixed: '#2a1700'
+  on-secondary-fixed-variant: '#653e00'
+  tertiary-fixed: '#6ffbbe'
+  tertiary-fixed-dim: '#4edea3'
+  on-tertiary-fixed: '#002113'
+  on-tertiary-fixed-variant: '#005236'
+  background: '#031427'
+  on-background: '#d3e4fe'
+  surface-variant: '#26364a'
+typography:
+  display:
+    fontFamily: Chivo
+    fontSize: 36px
+    fontWeight: '700'
+    lineHeight: 44px
+    letterSpacing: -0.02em
+  display-mobile:
+    fontFamily: Chivo
+    fontSize: 28px
+    fontWeight: '700'
+    lineHeight: 34px
+    letterSpacing: -0.01em
+  headline-lg:
+    fontFamily: Chivo
+    fontSize: 28px
+    fontWeight: '600'
+    lineHeight: 36px
+    letterSpacing: -0.015em
+  headline-lg-mobile:
+    fontFamily: Chivo
+    fontSize: 22px
+    fontWeight: '600'
+    lineHeight: 28px
+    letterSpacing: -0.01em
+  headline-md:
+    fontFamily: Chivo
+    fontSize: 20px
+    fontWeight: '600'
+    lineHeight: 28px
+  headline-sm:
+    fontFamily: Chivo
+    fontSize: 16px
+    fontWeight: '600'
+    lineHeight: 24px
+  body-lg:
+    fontFamily: Geist
+    fontSize: 15px
+    fontWeight: '400'
+    lineHeight: 22px
+  body-md:
+    fontFamily: Geist
+    fontSize: 13px
+    fontWeight: '400'
+    lineHeight: 18px
+  body-sm:
+    fontFamily: Geist
+    fontSize: 12px
+    fontWeight: '400'
+    lineHeight: 16px
+  data-tabular:
+    fontFamily: JetBrains Mono
+    fontSize: 12px
+    fontWeight: '500'
+    lineHeight: 16px
+    letterSpacing: '0'
+  label-code:
+    fontFamily: JetBrains Mono
+    fontSize: 11px
+    fontWeight: '600'
+    lineHeight: 14px
+    letterSpacing: 0.05em
+  label-badge:
+    fontFamily: Chivo
+    fontSize: 11px
+    fontWeight: '700'
+    lineHeight: 12px
+    letterSpacing: 0.06em
+rounded:
+  sm: 0.125rem
+  DEFAULT: 0.25rem
+  md: 0.375rem
+  lg: 0.5rem
+  xl: 0.75rem
+  full: 9999px
+spacing:
+  gutter: 1rem
+  gutter-compact: 0.5rem
+  margin: 1.5rem
+  margin-mobile: 0.75rem
+  space-xs: 0.25rem
+  space-sm: 0.5rem
+  space-md: 0.75rem
+  space-lg: 1rem
+  space-xl: 1.5rem
+---
+
+## Brand & Style
+
+This design system delivers an exacting, audit-ready operational environment tailored for high-output flexible packaging manufacturing plants. Balancing institutional authority with factory-floor legibility, the interface rejects decorative indulgence in favor of precise, instrument-grade visual hierarchy.
+
+The design movement combines **Industrial Modernism** with **Compact Functionalism**:
+- High-contrast, glare-resistant surfaces suited for both executive audits and handheld touch terminals on extrusion and rotogravure production lines.
+- High-density data matrices, deterministic status signifiers, and clear tabular rhythm.
+- A utilitarian aesthetic emphasizing mechanical order, strict alignment, and immediate visual triage of quality control thresholds (mil thickness, tensile yield, seal integrity, optical density).
+
+## Colors
+
+The palette establishes an industrial command center dynamic:
+
+- **Dominant Base (`#0f172a`, `#1e293b`)**: Deep navy and dark slate structural containers reduce visual fatigue under harsh plant lighting, maintain contrast ratios exceeding WCAG AAA, and anchor complex technical panels.
+- **Safety Alert & Attention (`#f59e0b`)**: Calibrated safety amber serves strictly as an operational warning, pending verification, calibration reminder, or active attention state. It is never used for general brand decoration.
+- **Verification Indicators (`#10b981` / `#ef4444`)**: Definitive binary pass/fail tokens. Used exclusively for tolerance margins, non-conformance reporting (NCRs), audit completions, and critical safety deviations.
+- **Neutral Framing (`#64748b` to `#cbd5e1`)**: Neutral slate tints handle dense table borders, secondary technical specs, units of measure, and inactive state architecture without introducing noise.
+
+## Typography
+
+Typography prioritizes rapid scannability and structural legibility across three complementary families:
+
+1. **Display & Section Headers (Chivo)**: Delivers an assertive, precise industrial character with high x-height for plant signage readability and section anchoring.
+2. **Body & Interface Text (Geist)**: Provides neutral, dense, and hyper-legible rendering across complex parameter forms, defect logs, and operational workflows.
+3. **Metrics, Timestamps, & Identifiers (JetBrains Mono)**: Reserved for lot numbers, ASTM/ISO standard references, micron gauges, roll weights, and sensor metrics. Tabular figures ensure rigid vertical column alignment across thousands of rows.
+
+## Layout & Spacing
+
+The layout model employs a high-density **Fluid Modular Grid** built to maximize screen efficiency on workstation consoles and industrial tablets without horizontal scrolling for key telemetry.
+
+- **Desktop (1440px+)**: 12-column system, 16px (`1rem`) gutters, persistent collapsible operational sidebar, split inspection viewports, and full-width data grids.
+- **Tablet / Industrial Mount (768px - 1439px)**: 8-column layout, touch-friendly density targets, critical action bars pinned to the bottom viewport.
+- **Mobile Handheld (360px - 767px)**: 4-column layout, single-parameter vertical inspection cards, pinned primary audit action triggers.
+
+Spacing scales aggressively downward compared to consumer SaaS: `0.25rem` to `0.75rem` increments allow 30–40% more inspection points to fit within a single viewport, critical during active roll-change audits.
+
+## Elevation & Depth
+
+To preserve sharp contrast and prevent visual muddying in dust-prone, bright factory environments, the design system utilizes **Tonal Surface Tiering with Razor Low-Contrast Outlines** instead of diffuse drop shadows.
+
+- **Level 0 (Canvas Base)**: `#0b1120` (Extreme dark ground for max contrast).
+- **Level 1 (Card/Table Surface)**: `#0f172a` bordered with `1px solid #1e293b`.
+- **Level 2 (Active Panels / Flyouts)**: `#1e293b` bordered with `1px solid #334155`.
+- **Level 3 (Modal / Critical Alert Dialogs)**: `#1e293b` with a crisp outer stroke (`1px solid #475569`) and an operational keyline accent in Amber (`#f59e0b`) or Red (`#ef4444`) on the leading edge.
+
+Drop shadows are limited exclusively to floating inspection modals: `0 8px 24px -4px rgba(0, 0, 0, 0.65)`.
+
+## Shapes
+
+The interface embraces a strict, architectural corner radius model (`0.25rem` / `roundedness: 1`). 
+
+- Default elements (inputs, buttons, table cell wrappers, status badges) use a minimal 4px radius, preserving the engineered, robust hardware appearance.
+- Structural panels and modals step up to 8px (`rounded-lg`).
+- Circular pill geometry is strictly prohibited except for binary status dots, ensuring UI elements resemble precision equipment readouts rather than soft consumer cards.
+
+## Components
+
+### Buttons
+- **Primary Industrial**: Solid Amber `#f59e0b` text `#0f172a` font-weight 700 with uppercase micro-tracking. Used strictly for commit states: "Approve Roll", "Authorize Release", "Sign-Off Batch".
+- **Secondary**: Slate `#1e293b` with a 1px `#334155` border, text `#f8fafc`. Hover lifts border to `#64748b`.
+- **Destructive/Halt**: Deep Crimson background with `#ef4444` border and crisp white text: "Quarantine Lot", "Flag NCR".
+- Sizing is compact (32px default height desktop, 44px min on touch profiles).
+
+### Status Badges & Chips
+- Monospaced, uppercase, 20px fixed height.
+- Solid 1px borders surrounding low-opacity tints:
+  - **Pass / In-Spec**: Border `#10b981`, surface `rgba(16, 185, 129, 0.12)`, text `#34d399`.
+  - **Critical Failure / Out-of-Spec**: Border `#ef4444`, surface `rgba(239, 68, 68, 0.15)`, text `#f87171`.
+  - **Calibration / Warning**: Border `#f59e0b`, surface `rgba(245, 158, 11, 0.12)`, text `#fbbf24`.
+  - **Hold / Offline**: Border `#64748b`, surface `rgba(100, 116, 139, 0.15)`, text `#94a3b8`.
+
+### Data Tables
+- Condensed row height (36px standard, 44px touch).
+- Sticky headers on `#0f172a` with uppercase `label-code` typography.
+- Alternating row banding using `#0f172a` and `#131d31`.
+- Monospaced numerical values with automated tolerance indicators (inline micro-glyphs for + / - variance).
+- Direct-action cell buttons for rapid row-level drilldown into lab test logs.
+
+### Checkboxes & Binary Verifications
+- Box-style toggles (16px x 16px) with 2px borders (`#475569`).
+- Checked state fills with `#10b981` (Pass) or `#ef4444` (Fail) accompanied by definitive iconography (checkmark or cross mark), never relying purely on hue.
+
+### Input Fields & Spec Steppers
+- Dark slate fill `#0b1120` inset within a `#334155` border.
+- Integrated unit-of-measure labels permanently docked in the right slot (`µm`, `GSM`, `N/15mm`, `kg/cm²`).
+- High-visibility focus state: 1px `#38bdf8` outline with no blur.
+- Numerical stepper controls with tactile, high-contrast increment/decrement hit zones.
+
+### Inspection Cards & Metrics Tiles
+- Metric tiles feature a prominent top border keyline matching current parameter state (Green/Amber/Red).
+- Monospaced actual-versus-target display format: `Actual: 42.4 µm / Target: 40.0 µm (±5%)`.
+- Batch and Roll header metadata permanently displays Job Order, Extrusion Line Number, and QA Inspector ID.

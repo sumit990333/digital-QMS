@@ -1,0 +1,8 @@
+{
+  "name": "Remix Apex QMS",
+  "description": "Industrial quality management and fleet monitoring system for high-output flexible packaging manufacturing plants.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
